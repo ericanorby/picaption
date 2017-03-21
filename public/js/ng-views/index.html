@@ -1,0 +1,7 @@
+<h2> {{vm.pictures.length}} Total Pictures </h2>
+
+<div class='pictures'>
+  <div data-ng-repeat="picture in vm.pictures">
+    <a data-ui-sref="show({_id: picture._id})"><img src="{{picture.photo}}" alt="{{picture.alt}}"></a>
+  </div>
+</div>

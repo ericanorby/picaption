@@ -19,6 +19,12 @@ app.get("/", function(req, res) {
   res.render("main")
 })
 
+app.get("/api/pictures", (req, res) => {
+  Picture.find({}).then(function(pictures){
+    res.json(pictures);
+  })
+})
+
 app.get("/api/pictures/:id", function(req,res) {
   Picture.findOne({_id: req.params.id}).then(function(picture){
     res.json(picture)
