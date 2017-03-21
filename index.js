@@ -19,6 +19,10 @@ app.get("/", function(req, res) {
   res.send(console.log("hello it's me"));
 })
 
+
+
+
+
 app.listen(app.get("port"), function(){
   console.log("Port works!");
 })
