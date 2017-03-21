@@ -30,7 +30,7 @@ angular
     $stateProvider
       .state("PicIndex", {
         url: "/",
-        templateUrl: "/assets/ng-views/index.html",
+        templateUrl: "/assets/js/ng-views/index.html",
         controller: "PicIndexCtrl",
         controllerAs: "vm"
       })
@@ -68,4 +68,5 @@ function PicIndexCtrlFunction(PicFactory, $state){
 }
 
 function PictureShowControllerFunction($stateParams, PicFactory){
-  this.picture = PicFactory.get({id : $stateParams.id})
+  this.picture = PicFactory.pictures.get({id: $stateParams.id})
+}
