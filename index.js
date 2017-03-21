@@ -31,6 +31,12 @@ app.get("/api/pictures/:id", function(req,res) {
   })
 })
 
+app.post("/api/pictures", function(req, res){
+  Picture.create(req.body).then(function(picture){
+    res.json(picture);
+  });
+});
+
 app.listen(app.get("port"), function(){
   console.log("Port works!");
 })

@@ -7,18 +7,18 @@ angular
     "$stateProvider",
     RouterFunction
   ])
-  .factory("PicFactory",[
+  .factory("Factory",[
     "$resource",
-    PicFactoryFunction
+    FactoryFunction
   ])
   .controller("PicIndexCtrl",[
-    "PicFactory",
+    "Factory",
     "$state",
     PicIndexCtrlFunction
   ])
   .controller("PictureShowController", [
     "$stateParams",
-    "PicFactory",
+    "Factory",
     PictureShowControllerFunction
   ])
 
@@ -43,7 +43,7 @@ angular
   }
 
 
-  function PicFactoryFunction($resource, $stateParams){
+  function FactoryFunction($resource, $stateParams){
     return {
     pictures: $resource( "/api/pictures/:id", {id: "@id"}, {
       query: {method: "GET", params: {}, isArray: true },
@@ -63,11 +63,18 @@ angular
 }
 
 
-function PicIndexCtrlFunction(PicFactory, $state){
-  this.pictures = PicFactory.pictures.query();
+function PicIndexCtrlFunction(Factory, $state){
+  this.pictures = Factory.pictures.query();
+
+  this.newPicture = new Factory.pictures()
+  this.create = function() {
+    this.newPicture.$save().then(function(picture){
+      $state.go("show", {id: picture._id})
+    })
+  }
 }
 
-function PictureShowControllerFunction($stateParams, PicFactory){
-  this.picture = PicFactory.pictures.get({id: $stateParams.id})
+function PictureShowControllerFunction($stateParams, Factory){
+  this.picture = Factory.pictures.get({id: $stateParams.id})
 
 }
