@@ -69,4 +69,5 @@ function PicIndexCtrlFunction(PicFactory, $state){
 
 function PictureShowControllerFunction($stateParams, PicFactory){
   this.picture = PicFactory.pictures.get({id: $stateParams.id})
+
 }
