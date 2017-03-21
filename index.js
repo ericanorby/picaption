@@ -16,12 +16,14 @@ app.use("/assets", express.static("public"));
 app.use(parser.json({extended: true}));
 
 app.get("/", function(req, res) {
-  res.send(console.log("hello it's me"));
+  res.render("main")
 })
 
-
-
-
+app.get("/api/pictures/:id", function(req,res) {
+  Picture.findOne({_id: req.params.id}).then(function(picture){
+    res.json(picture)
+  })
+})
 
 app.listen(app.get("port"), function(){
   console.log("Port works!");
