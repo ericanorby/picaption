@@ -18,12 +18,13 @@ angular
   ])
   .controller("CaptionNewController", [
     "$stateParams",
-    "PicFactory",
+    "Factory",
     CaptionNewControllerFunction
   ])
   .controller("CaptionShowController", [
     "$stateParams",
-    "PicFactory",
+    "Factory",
+    "$state",
     CaptionShowControllerFunction
   ])
 
@@ -76,38 +77,44 @@ function PicIndexCtrlFunction(Factory, $state){
   this.newPicture = new Factory.pictures()
   this.create = function() {
     this.newPicture.$save().then(function(picture){
-      $state.go("show", {id: picture._id})
+      $state.go("captionShow", {pic_id: picture._id})
     })
   }
 }
 
-function PictureShowControllerFunction($stateParams, Factory, $state){
-  this.picture = Factory.pictures.get({id: $stateParams.id})
-
+function CaptionShowControllerFunction($stateParams, Factory, $state){
+  // shows pictures and comments
+  this.picture = Factory.pictures.get({id: $stateParams.pic_id}, (picture) => {
+    this.captions = picture.captions
+  })
+  // updates picture info
   this.update = function(){
-    this.picture.$update({id: $stateParams.id}, function() {
+    this.picture.$update({id: $stateParams.pic_id}, function() {
      $state.reload()
    })
   }
+  // deletes picture
   this.remove = function(){
-    this.picture.$remove({id: $stateParams.id}, function(){
+    this.picture.$remove({id: $stateParams.pic_id}, function(){
        $state.go("PicIndex")
      })
   }
+};
 
-function CaptionShowControllerFunction($stateParams, PicFactory){
-  this.picture = PicFactory.pictures.get({id: $stateParams.pic_id}, (picture) => {
-    this.captions = picture.captions
-  })
-}
+function CaptionNewControllerFunction($stateParams, Factory){
+  this.picture = Factory.pictures.get({id: $stateParams.pic_id});
 
-function CaptionNewControllerFunction($stateParams, PicFactory){
-  this.picture = PicFactory.pictures.get({id: $stateParams.pic_id}, (picture) => {
-    this.caption = new PicFactory.captions()
-    //not sure how to do this create function, I tried
-    this.create = function(){
-      picture.captions.push(this.caption)
-      this.caption.$save()
+    this.caption = new Factory.captions()
+    this.picture.create = function (){
+      this.caption.$save().then(function(caption){
+        this.picture.captions.push(caption)
+        console.log(caption)
+      })
+
+      //not sure how to do this create function, I tried
+    // this.create = function(){
+    //    this.picture.captions.push(this.caption)
+    //   console.log(this.picture.captions)
+      // this.caption.$save()
     }
-  })
-}
+  }
