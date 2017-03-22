@@ -1,9 +1,9 @@
 <h2> {{vm.pictures.length}} Total Pictures </h2>
-<button ng-click="createPic = !createPic"> Create </button>
+<button ng-click="createPic = !createPic"> Upload Photo </button>
 <div ng-show="createPic">
 <form ng-submit="vm.create()">
-  <input ng-model="vm.newPicture.photo_url" placeholder="Photo Url">
-  <input ng-model="vm.newPicture.alt" placeholder="alt">
+  <input type="text" ng-model="vm.newPicture.photo_url" placeholder="Photo Url">
+  <input type="text" ng-model="vm.newPicture.alt" placeholder="alt">
   <button type='submit'> Create </button>
 </form>
 </div>

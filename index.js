@@ -49,11 +49,17 @@ app.put("/api/pictures/:id", function(req, res){
   });
 });
 
+app.get("/api/pictures/:pic_id/captions", function(req,res){
+  Picture.findOne({_id: req.params.pic_id}).then(function(){
+    res.json(picture);
+  })
+})
+
 
 //not sure what route to use but this one makes sense, but it seems to be throwing an error?
 app.post("/api/pictures/:pic_id/captions", function(req,res) {
   Picture.findOne({_id: req.params.pic_id}).then(function(){
-    Caption.create({title: req.body.title}).then((caption) => {
+    Caption.create({author: req.body.author, content: req.body.content}).then((caption) => {
       res.json(caption)
     })
   })

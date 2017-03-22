@@ -18,6 +18,7 @@ angular
   ])
   .controller("CaptionNewController", [
     "$stateParams",
+    "$state",
     "Factory",
     CaptionNewControllerFunction
   ])
@@ -101,20 +102,18 @@ function CaptionShowControllerFunction($stateParams, Factory, $state){
   }
 };
 
-function CaptionNewControllerFunction($stateParams, Factory){
+
+function CaptionNewControllerFunction($stateParams, $state, Factory){
+  vm = this;
   this.picture = Factory.pictures.get({id: $stateParams.pic_id});
 
     this.caption = new Factory.captions()
-    this.picture.create = function (){
-      this.caption.$save().then(function(caption){
-        this.picture.captions.push(caption)
-        console.log(caption)
+    this.caption.create = function (){
+      vm.caption.$save({pic_id: $stateParams.pic_id}).then(function(caption){
+        vm.picture.captions.push(caption)
+          vm.picture.$update({id: $stateParams.pic_id}, (picture) => {
+            $state.go("captionShow", {pic_id: picture._id})
+        })
       })
-
-      //not sure how to do this create function, I tried
-    // this.create = function(){
-    //    this.picture.captions.push(this.caption)
-    //   console.log(this.picture.captions)
-      // this.caption.$save()
     }
   }
