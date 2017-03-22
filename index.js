@@ -37,6 +37,18 @@ app.post("/api/pictures", function(req, res){
   });
 });
 
+app.delete("/api/pictures/:id", function(req, res){
+  Picture.findOneAndRemove({_id: req.params.id}).then(function(){
+    res.json({success: true});
+  });
+});
+
+app.put("/api/pictures/:id", function(req, res){
+  Picture.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}).then(function(picture){
+    res.json(picture);
+  });
+});
+
 app.listen(app.get("port"), function(){
   console.log("Port works!");
 })

@@ -1,4 +1,13 @@
 <h1>Check out this picture!</h1>
+<button ng-click="editPic = !editPic"> Edit </button>
+<div ng-show="editPic">
+  <form>
+    <input ng-model="vm.picture.photo_url" placeholder="Photo Url">
+    <input ng-model="vm.picture.alt" placeholder="alt">
+    <button ng-click="vm.update()"> Update </button>
+  </form>
+    <button ng-click="vm.remove()"> Delete </button>
+</div>
 <img ng-src="{{vm.picture.photo_url}}" alt="{{vm.picture.alt}}" />
 
 <div ng-repeat="caption in vm.captions">

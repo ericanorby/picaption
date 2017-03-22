@@ -19,6 +19,7 @@ angular
   .controller("PictureShowController", [
     "$stateParams",
     "Factory",
+    "$state",
     PictureShowControllerFunction
   ])
 
@@ -74,7 +75,17 @@ function PicIndexCtrlFunction(Factory, $state){
   }
 }
 
-function PictureShowControllerFunction($stateParams, Factory){
+function PictureShowControllerFunction($stateParams, Factory, $state){
   this.picture = Factory.pictures.get({id: $stateParams.id})
 
+  this.update = function(){
+    this.picture.$update({id: $stateParams.id}, function() {
+     $state.reload()
+   })
+  }
+  this.remove = function(){
+    this.picture.$remove({id: $stateParams.id}, function(){
+       $state.go("PicIndex")
+     })
+  }
 }
