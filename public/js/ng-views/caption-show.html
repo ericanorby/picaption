@@ -1,10 +1,11 @@
-<h1>Check out this picture!</h1>
+<h1>Scroll down to read the captions!</h1>
 <img ng-src="{{vm.picture.photo_url}}" alt="{{vm.picture.alt}}" />
+<br>
 <button ng-click="editPic = !editPic"> Edit </button>
 <div ng-show="editPic">
   <form>
-    <input ng-model="vm.picture.photo_url" placeholder="Photo Url">
-    <input ng-model="vm.picture.alt" placeholder="alt">
+    <input type="text" ng-model="vm.picture.photo_url" placeholder="Photo Url">
+    <input type="text" ng-model="vm.picture.alt" placeholder="alt">
     <button ng-click="vm.update()"> Update </button>
   </form>
     <button ng-click="vm.remove()"> Delete </button>
@@ -12,5 +13,5 @@
 
 <div class="show-caption" ng-repeat="caption in vm.captions">
   <span>{{caption.content}}</span><br>
-  <span>Submitted by: {{caption.author}}</span>
+  <span class="author">Submitted by: {{caption.author}}</span>
 </div>

@@ -34,6 +34,7 @@ header a {
 
 img {
   height: 400px;
+  margin: 5px;
 }
 
 #content {
@@ -63,5 +64,11 @@ form {
 .show-caption {
   border: 1px solid gray;
   padding: 10px;
-  margin: 10px 0;
+  margin: 10px auto;
+  width: 50%;
+  background: rgb(50,50,50);
+}
+
+.author {
+  color: gray;
 }
