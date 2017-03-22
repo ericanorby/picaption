@@ -1,3 +1,16 @@
+body {
+  margin: 0 auto;
+  padding: 0 30px;
+  text-align: center;
+  width: 60%;
+}
+
 img {
   height: 300px;
+}
+
+.show-caption {
+  border: 1px solid gray;
+  padding: 10px;
+  margin: 10px 0;
 }

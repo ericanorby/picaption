@@ -16,15 +16,16 @@ angular
     "$state",
     PicIndexCtrlFunction
   ])
-  .controller("PictureShowController", [
+  .controller("CaptionNewController", [
     "$stateParams",
-    "Factory",
-    "$state",
-    PictureShowControllerFunction
+    "PicFactory",
+    CaptionNewControllerFunction
   ])
-
-
-
+  .controller("CaptionShowController", [
+    "$stateParams",
+    "PicFactory",
+    CaptionShowControllerFunction
+  ])
 
 
   function RouterFunction($stateProvider){
@@ -35,10 +36,16 @@ angular
         controller: "PicIndexCtrl",
         controllerAs: "vm"
       })
-      .state("show", {
-        url: "/pictures/:id",
-        templateUrl: "/assets/js/ng-views/show.html",
-        controller: "PictureShowController",
+      .state("captionNew", {
+        url: "/pictures/:pic_id/captions/new",
+        templateUrl: "/assets/js/ng-views/caption-new.html",
+        controller: "CaptionNewController",
+        controllerAs: "vm"
+      })
+      .state("captionShow", {
+        url: "/pictures/:pic_id/captions",
+        templateUrl: "/assets/js/ng-views/caption-show.html",
+        controller: "CaptionShowController",
         controllerAs: "vm"
       })
   }
@@ -62,7 +69,6 @@ angular
     })
   }
 }
-
 
 function PicIndexCtrlFunction(Factory, $state){
   this.pictures = Factory.pictures.query();
@@ -88,4 +94,20 @@ function PictureShowControllerFunction($stateParams, Factory, $state){
        $state.go("PicIndex")
      })
   }
+
+function CaptionShowControllerFunction($stateParams, PicFactory){
+  this.picture = PicFactory.pictures.get({id: $stateParams.pic_id}, (picture) => {
+    this.captions = picture.captions
+  })
+}
+
+function CaptionNewControllerFunction($stateParams, PicFactory){
+  this.picture = PicFactory.pictures.get({id: $stateParams.pic_id}, (picture) => {
+    this.caption = new PicFactory.captions()
+    //not sure how to do this create function, I tried
+    this.create = function(){
+      picture.captions.push(this.caption)
+      this.caption.$save()
+    }
+  })
 }

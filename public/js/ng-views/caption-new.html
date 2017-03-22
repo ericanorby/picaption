@@ -1,0 +1,9 @@
+<h1>Check out this picture!</h1>
+<img ng-src="{{vm.picture.photo_url}}" alt="{{vm.picture.alt}}" />
+
+<h2>Add a caption</h2>
+<form ng-submit="vm.create()">
+  <input type="text" ng-model="vm.caption.author" placeholder="Your Name" />
+  <input type="text" ng-model="vm.caption.content" placeholder="Write your caption here!" />
+  <button type="submit">Submit your caption</button>
+</form>

@@ -19,9 +19,9 @@ app.get("/", function(req, res) {
   res.render("main")
 })
 
-app.get("/api/pictures", (req, res) => {
+app.get("/api/pictures", function(req,res) {
   Picture.find({}).then(function(pictures){
-    res.json(pictures);
+    res.json(pictures)
   })
 })
 
@@ -48,6 +48,15 @@ app.put("/api/pictures/:id", function(req, res){
     res.json(picture);
   });
 });
+
+//not sure what route to use but this one makes sense, but it seems to be throwing an error?
+app.post("/api/pictures/:pic_id/captions", function(req,res) {
+  Picture.findOne({_id: req.params.pic_id}).then(function(picture){
+    Caption.create(req.body.caption).then((caption) => {
+      console.log(caption)
+    })
+  })
+})
 
 app.listen(app.get("port"), function(){
   console.log("Port works!");

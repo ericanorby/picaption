@@ -10,6 +10,6 @@
 
 <div class='pictures'>
   <div data-ng-repeat="picture in vm.pictures">
-    <a data-ui-sref="show({id: picture._id})"><img src="{{picture.photo_url}}" alt="{{picture.alt}}"></a>
+    <a data-ui-sref="captionNew({pic_id: picture._id})"><img src="{{picture.photo_url}}" alt="{{picture.alt}}"></a>
   </div>
 </div>

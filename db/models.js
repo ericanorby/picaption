@@ -1,5 +1,5 @@
 const mongoose = require("./connection.js");
-let Schema = mongoose.Schema
+// let Schema = mongoose.Schema
 
 const CaptionSchema = new mongoose.Schema(
   {
@@ -15,7 +15,7 @@ const PictureSchema = new mongoose.Schema(
   {
     photo_url: String,
     alt: String,
-    captions: [{type: Schema.ObjectId, ref: "Caption"}]
+    captions: [CaptionSchema]
   }
 )
 

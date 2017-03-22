@@ -1,0 +1,7 @@
+<h1>Check out this picture!</h1>
+<img ng-src="{{vm.picture.photo_url}}" alt="{{vm.picture.alt}}" />
+
+<div class="show-caption" ng-repeat="caption in vm.captions">
+  <span>{{caption.content}}</span><br>
+  <span>Submitted by: {{caption.author}}</span>
+</div>
